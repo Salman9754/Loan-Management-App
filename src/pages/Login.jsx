@@ -12,7 +12,7 @@ const Login = () => {
     <div className="login_container flex justify-between mx-auto flex-col lg:flex-row h-screen">
        <ToastContainer
                     position='top-right'
-                    autoClose={7000}
+                    autoClose={2000}
                     hideProgressBar={false}
                     newestOnTop={false}
                     closeOnClick={false}

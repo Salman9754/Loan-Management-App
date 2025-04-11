@@ -4,19 +4,19 @@ import MyLogo from "@/components/MyLogo";
 import "../styles/components.css";
 import { Link } from "react-router-dom";
 import video from "../assets/halo.mp4";
-import { ToastContainer, Bounce, } from "react-toastify";
+import { ToastContainer, Bounce} from "react-toastify";
 const SignUpPage = () => {
   return (
     <>
       <div className="login_container flex justify-between mx-auto flex-col lg:flex-row">
         <div
-          className="form_left w-full lg:w-1/3 bg-neutral-50 border rounded px-8 py-16 flex 
+          className="form_left w-full lg:w-1/3 bg-neutral-50 border rounded px-8 py-11 flex gap-8
         md:px-10 flex-col"
         >
-          <div className="mb-5">
+          <div>
             <ToastContainer
-              position={window.innerWidth <= 640 ? "top-right" : "top-left"}
-              autoClose={7000}
+              position="top-left"
+              autoClose={2500}
               hideProgressBar={false}
               newestOnTop={false}
               closeOnClick={false}
@@ -29,7 +29,7 @@ const SignUpPage = () => {
             />
             <MyLogo />
           </div>
-          <div className="form_container mt-3">
+          <div className="form_container">
             <div className="text-center">
               <h5 className="text-2xl sm:text-2xl md:text-2xl lg:text-3xl xl:text-3xl 2xl:text-4xl font-medium">
                 Get started
