@@ -1,7 +1,7 @@
 import { React, useState } from "react";
 import { useForm } from "react-hook-form";
 import supabase from "@/supabase/client";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 import { Navigate, useNavigate } from "react-router-dom";
 import {
   Form,
@@ -16,7 +16,7 @@ import { Button } from "@/components/ui/button";
 
 const SignUpForm = () => {
   const navigate = useNavigate();
-  const notify = () => toast.success('Account created confirm email');
+  const notify = () => toast.success("Account created confirm email");
   const [loading, setloading] = useState(false);
   const form = useForm({
     defaultValues: {
@@ -30,32 +30,32 @@ const SignUpForm = () => {
   const onSubmit = async (formData) => {
     const { firstname, lastname, email, password } = formData;
     try {
-    
       setloading(true);
       const { data, error } = await supabase.auth.signUp({
         email: email,
         password: password,
-      })
+      });
       if (error) throw error;
       if (data) {
+        const userId = data.user.id;
         try {
           const { error: UserError } = await supabase.from("Users").insert({
             first_name: firstname,
             last_name: lastname,
             email: email,
+            user_Id: userId,
           });
           if (UserError) throw UserError;
-          notify()
-          form.reset()
+          notify();
+          form.reset();
           setInterval(() => {
-            navigate('/login')
+            navigate("/login");
           }, 2700);
           console.log(data);
         } catch (error) {
           console.log(error);
-        }
-        finally{
-          setloading(false)
+        } finally {
+          setloading(false);
         }
       }
     } catch (error) {
