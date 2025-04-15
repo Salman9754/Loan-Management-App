@@ -10,10 +10,10 @@ const Home = () => {
         <Navbar />
         <div className="container home_container mx-auto flex justify-center items-center h-screen flex-col w-full lg:w-[72%] gap-5">
           <div className="headings">
-          <h1 class="text-2xl sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-medium">
+          <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-medium">
             Manage loans in a weekend
           </h1>
-          <h1 class="text-2xl sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-medium sub-head">
+          <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-medium sub-head">
             Scale to thousands of clients
           </h1>
           </div>

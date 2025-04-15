@@ -11,11 +11,14 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button"; 
+import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import { useClientInfo } from "@/context/supabaseClientInfo";
+
 
 const LoginForm = () => {
-  const navigate =  useNavigate()
+  const { fetchData } = useClientInfo();
+  const navigate = useNavigate();
   const notify = () => toast.success("Logged In Successfully");
   const Unnotify = (error) => toast.error(error.message);
   const [loading, setloading] = useState(false);
@@ -36,18 +39,16 @@ const LoginForm = () => {
       });
       if (error) throw error;
       if (data) {
+        await fetchData();
         notify();
-        form.reset()
-        console.log(data);
-        navigate('/dashboard')
-
+        form.reset();
+        navigate("/dashboard");
       }
     } catch (error) {
       Unnotify(error);
       console.log(error);
-    }
-    finally{
-      setloading(false)
+    } finally {
+      setloading(false);
     }
   };
 

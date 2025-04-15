@@ -51,7 +51,6 @@ const SignUpForm = () => {
           setInterval(() => {
             navigate("/login");
           }, 2700);
-          console.log(data);
         } catch (error) {
           console.log(error);
         } finally {

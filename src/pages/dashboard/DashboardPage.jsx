@@ -13,49 +13,44 @@ import {
   CardFooter,
   CardContent,
 } from "@/components/ui/card";
-import { ClipLoader } from "react-spinners";
 import LogOutBtn from "@/components/LogOutBtn";
 
 const DashboardPage = () => {
   const { loading, clientData } = useClientInfo();
-  console.log(clientData);
-
   if (loading) {
     return (
       <>
-      <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 p-4 mt-8">
-        {Array.from({ length: 4 }).map((_, i) => (
-          <div key={i} className="space-y-4">
-            <Skeleton className="h-8 w-1/2" />
-            <Skeleton className="h-6 w-full" />
-            <Skeleton className="h-6 w-3/4" />
-          </div>
-        ))}
-      </div>
-      <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 p-4 ">
-        {Array.from({ length: 4 }).map((_, i) => (
-          <div key={i} className="space-y-4">
-            <Skeleton className="h-8 w-1/2" />
-            <Skeleton className="h-6 w-full" />
-            <Skeleton className="h-6 w-3/4" />
-          </div>
-        ))}
-      </div>
-      <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 p-4 ">
-        {Array.from({ length: 4 }).map((_, i) => (
-          <div key={i} className="space-y-4">
-            <Skeleton className="h-8 w-1/2" />
-            <Skeleton className="h-6 w-full" />
-            <Skeleton className="h-6 w-3/4" />
-          </div>
-        ))}
-      </div>
+        <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 p-4 mt-8">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <div key={i} className="space-y-4">
+              <Skeleton className="h-8 w-1/2" />
+              <Skeleton className="h-6 w-full" />
+              <Skeleton className="h-6 w-3/4" />
+            </div>
+          ))}
+        </div>
+        <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 p-4 ">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <div key={i} className="space-y-4">
+              <Skeleton className="h-8 w-1/2" />
+              <Skeleton className="h-6 w-full" />
+              <Skeleton className="h-6 w-3/4" />
+            </div>
+          ))}
+        </div>
+        <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 p-4 ">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <div key={i} className="space-y-4">
+              <Skeleton className="h-8 w-1/2" />
+              <Skeleton className="h-6 w-full" />
+              <Skeleton className="h-6 w-3/4" />
+            </div>
+          ))}
+        </div>
       </>
-      
     );
   }
-
-  return (
+   return (
     <>
       <div className="dashboard_cards flex flex-col gap-5">
         <div className="fullcard mt-5">
@@ -68,7 +63,7 @@ const DashboardPage = () => {
                       ? clientData.map((item, index) => {
                           return (
                             <span key={index}>
-                              {item.first_name} {item.last_name}
+                              Hey {item.first_name} {item.last_name}
                             </span>
                           );
                         })
@@ -83,7 +78,7 @@ const DashboardPage = () => {
                 Thank you for using our platform here is the overview of your
                 account
               </CardDescription>
-              <div className="logout_for_mobile w-full flex justify-center lg:hidden ">
+              <div className="logout_for_mobile w-full flex justify-center lg:hidden md:hidden">
                 <LogOutBtn />
               </div>
             </CardHeader>
