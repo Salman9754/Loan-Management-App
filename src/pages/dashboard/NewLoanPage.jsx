@@ -1,6 +1,6 @@
 import React from "react";
 import NewLoanForm from "@/components/NewLoanForm";
-import { Card, CardTitle,CardDescription,CardContent,CardHeader } from "@/components/ui/card";
+import { Card, CardTitle,CardDescription,CardHeader } from "@/components/ui/card";
 import "../../styles/dashboard.css";
 import { AlertCircle } from "lucide-react";
 

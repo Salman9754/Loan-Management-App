@@ -1,16 +1,8 @@
-import { React, useState } from "react";
+import { React } from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "./ui/button";
-import { format } from "date-fns";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
-import { cn } from "@/lib/utils";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@radix-ui/react-popover";
-import { Calendar } from "./ui/calendar";
-import { CalendarIcon } from "lucide-react";
+import supabase from "@/supabase/client";
 import {
   Form,
   FormField,
@@ -18,7 +10,6 @@ import {
   FormLabel,
   FormControl,
   FormMessage,
-  FormDescription,
 } from "@/components/ui/form";
 import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
 import { Input } from "./ui/input";
@@ -38,10 +29,57 @@ const NewLoanForm = () => {
       gender: "",
       socialNumber: "",
       address: "",
+      loanAmount: "",
+      LoanTerms: "",
+      LoanFrequency: "",
+      reference: "",
+      terms: "",
     },
   });
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (newLoanData) => {
+    const {
+      dateOfBirth,
+      gender,
+      socialNumber,
+      address,
+      loanAmount,
+      LoanTerms,
+      LoanFrequency,
+      reference,
+    } = newLoanData;
+    try {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      const UserId = user.id;
+      try {
+        const { error } = await supabase.from("Loan_Requests").insert({
+          user_id: UserId,
+          loan_amount: loanAmount,
+          loan_term_months: LoanTerms,
+          payment_frequency: LoanFrequency,
+          reference: reference,
+        });
+        if (error) throw error;
+        try {
+          const { error } = await supabase
+            .from("Users")
+            .update({
+              birth_date: dateOfBirth,
+              gender: gender,
+              social_security_number: socialNumber,
+              address: address,
+            })
+            .eq("user_Id", UserId);
+            console.log('Data Inserted');
+          form.reset();
+        } catch (error) {}
+      } catch (error) {
+        console.log(error.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <>
@@ -56,48 +94,20 @@ const NewLoanForm = () => {
               <FormField
                 control={form.control}
                 name="dateOfBirth"
-                rules={{ required: "Date of birth is required" }}
+                rules={{
+                  required: "Required",
+                }}
                 render={({ field }) => (
-                  <FormItem className="flex flex-col space-y-3">
-                    <FormLabel>Date of Birth</FormLabel>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <FormControl>
-                          <Button
-                            variant="outline"
-                            className={cn(
-                              "w-[240px] pl-3 text-left font-normal w-full",
-                              !field.value && "text-muted-foreground"
-                            )}
-                          >
-                            {field.value ? (
-                              format(field.value, "PPP")
-                            ) : (
-                              <span>Pick a date</span>
-                            )}
-                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                          </Button>
-                        </FormControl>
-                      </PopoverTrigger>
-                      <PopoverContent
-                        align="center"
-                        className="w-auto p-0 bg-zinc-50 border border-neutral-200"
-                      >
-                        <Calendar
-                          mode="single"
-                          selected={field.value}
-                          onSelect={field.onChange}
-                          disabled={(date) =>
-                            date > new Date() || date < new Date("1900-01-01")
-                          }
-                          initialFocus
-                        />
-                      </PopoverContent>
-                    </Popover>
+                  <FormItem className="space-y-2 mt-5">
+                    <FormLabel>Date of birth</FormLabel>
+                    <FormControl>
+                      <Input type="date" {...field} />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
+
               {/* gender  */}
               <FormField
                 control={form.control}
@@ -228,7 +238,7 @@ const NewLoanForm = () => {
                           <SelectValue placeholder="Select a loan term" />
                         </SelectTrigger>
                       </FormControl>
-                      <SelectContent portal={false}>
+                      <SelectContent>
                         <SelectItem value="2 months">2 months</SelectItem>
                         <SelectItem value="4 months">4 months</SelectItem>
                         <SelectItem value="6 months">6 months</SelectItem>
@@ -274,12 +284,9 @@ const NewLoanForm = () => {
               <FormField
                 control={form.control}
                 name="reference"
-                rules={{
-                  required: "Required",
-                }}
                 render={({ field }) => (
                   <FormItem className="space-y-2 mt-5">
-                    <FormLabel>Reference</FormLabel>
+                    <FormLabel>Reference (optional)</FormLabel>
                     <FormControl>
                       <Input placeholder="Enter name" {...field} />
                     </FormControl>
@@ -316,7 +323,7 @@ const NewLoanForm = () => {
 
               <FormField
                 control={form.control}
-                name="mobile"
+                name="terms"
                 rules={{
                   required: "Required",
                 }}

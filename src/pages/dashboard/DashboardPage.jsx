@@ -51,7 +51,7 @@ const DashboardPage = () => {
       </>
     );
   }
-   return (
+  return (
     <>
       <div className="dashboard_cards flex flex-col gap-5">
         <div className="fullcard mt-5">
@@ -64,7 +64,7 @@ const DashboardPage = () => {
                       ? clientData.map((item, index) => {
                           return (
                             <span key={index}>
-                              Hey {item.first_name} {item.last_name}
+                              {item.first_name} {item.last_name}
                             </span>
                           );
                         })
@@ -141,11 +141,13 @@ const DashboardPage = () => {
             </CardHeader>
             <CardContent className="flex flex-col justify-center items-center gap-4">
               <p>No recent activity to display</p>
-             <Link to={'/dashboard/newloan'}> <Button>Apply for a new Loan</Button></Link>
+              <Link to={"/dashboard/newloan"}>
+                {" "}
+                <Button>Apply for a new Loan</Button>
+              </Link>
             </CardContent>
           </Card>
         </div>
-        
       </div>
     </>
   );
