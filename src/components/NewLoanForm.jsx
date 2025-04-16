@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { Button } from "./ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import supabase from "@/supabase/client";
+import { toast } from "react-toastify";
 import {
   Form,
   FormField,
@@ -23,6 +24,7 @@ import {
 import { Checkbox } from "./ui/checkbox";
 
 const NewLoanForm = () => {
+  const notify = () => toast.success("Loan Applied Successfully!");
   const form = useForm({
     defaultValues: {
       dateOfBirth: "",
@@ -71,8 +73,10 @@ const NewLoanForm = () => {
               address: address,
             })
             .eq("user_Id", UserId);
-            console.log('Data Inserted');
-          form.reset();
+          notify();
+          setTimeout(() => {
+            window.location.reload();
+          }, 3000);
         } catch (error) {}
       } catch (error) {
         console.log(error.message);

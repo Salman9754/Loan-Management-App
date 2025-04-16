@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useState, useEffect } from "react";
 import DashboardCard from "@/components/DashboardCard";
 import { CreditCard, CheckCircle, Gauge, Users } from "lucide-react";
 import "../../styles/dashboard.css";
@@ -6,18 +6,63 @@ import { Button } from "@/components/ui/button";
 import { useClientInfo } from "@/context/supabaseClientInfo";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Link } from "react-router-dom";
+import supabase from "@/supabase/client";
 import {
   Card,
   CardHeader,
   CardTitle,
   CardDescription,
-  CardFooter,
   CardContent,
 } from "@/components/ui/card";
 import LogOutBtn from "@/components/LogOutBtn";
 
 const DashboardPage = () => {
   const { loading, clientData } = useClientInfo();
+  const [appliedLoans, setappliedLoans] = useState(0);
+  const [reference, setreference] = useState(0);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
+        try {
+          const { count, error } = await supabase
+            .from("Loan_Requests")
+            .select("*", { count: "exact" })
+            .eq("user_id", user.id);
+          if (error) throw error;
+          console.log(count);
+          setappliedLoans(count);
+        } catch (error) {
+          console.log(error.message);
+        }
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+    fetchData();
+  }, []);
+  useEffect(() => {
+    if (!clientData?.[0]?.user_Id) return;
+    const userId = clientData[0].user_Id;
+    const fetchData = async () => {
+      try {
+        const { count, error } = await supabase
+          .from("Loan_Requests")
+          .select("reference", { count: "exact" })
+          .eq("user_id", userId)
+          .not("reference", "is", null)
+          .neq("reference", "");
+        setreference(count);
+        if (error) throw error;
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+    fetchData();
+  }, [clientData]);
+
   if (loading) {
     return (
       <>
@@ -89,7 +134,7 @@ const DashboardPage = () => {
           <div className="cards w-full">
             <DashboardCard
               heading={"Active Loans"}
-              headingCount={2}
+              headingCount={appliedLoans}
               icon={CreditCard}
               iconColor={"text-blue-700"}
               subHeading1={"Status"}
@@ -122,7 +167,7 @@ const DashboardPage = () => {
           <div className="cards w-full">
             <DashboardCard
               heading={"References"}
-              headingCount={2}
+              headingCount={reference}
               icon={Users}
               iconColor={"text-purple-500"}
               subHeading1={"Status"}

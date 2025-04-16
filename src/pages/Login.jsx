@@ -10,19 +10,6 @@ const Login = () => {
   return (
     
     <div className="login_container flex justify-between mx-auto flex-col lg:flex-row h-screen">
-       <ToastContainer
-                    position='top-right'
-                    autoClose={2000}
-                    hideProgressBar={false}
-                    newestOnTop={false}
-                    closeOnClick={false}
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover
-                    theme="light"
-                    transition={Bounce}
-                  />
       <div className="form_right relative w-full md:w-2/3 lg:w-2/3 relative ">
         {/* Video Background */}
         <video
