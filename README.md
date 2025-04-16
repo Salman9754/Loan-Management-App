@@ -1,12 +1,32 @@
-# React + Vite
+# 💸 Loanify – Modern Loan Management App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Loanify** is a sleek, secure, and modern loan management platform built with the latest tech stack – React, Tailwind CSS, shadcn/ui, and Supabase. It offers a seamless experience for users to apply for loans, track statuses, manage profiles, and view references—all in one place.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## Expanding the ESLint configuration
+- ✅ **Apply for a New Loan** – Guided multi-step form to collect personal and loan details.
+- 📋 **Dashboard View** – See your current loan status, pending requests, and quick actions.
+- 🔍 **Loan List Page** – View all loan applications with status indicators.
+- 👤 **User Profile** – Display user details, including past applications.
+- 🔁 **References Management** – Add references tied to loan requests.
+- 📱 **Upcoming** – Sign in with Google and phone authentication via Supabase.
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🛠 Tech Stack
+
+- **Frontend:** React, Tailwind CSS, shadcn/ui
+- **Backend:** Supabase (auth, database, storage)
+- **Other:** React Hook Form, Radix UI components
+
+---
+
+## 🧪 Getting Started
+
+```bash
+git clone https://github.com/salman9754/loanify.git
+cd loanify
+npm install
+npm run dev
