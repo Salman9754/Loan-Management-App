@@ -5,6 +5,7 @@ import "../../styles/dashboard.css";
 import { Button } from "@/components/ui/button";
 import { useClientInfo } from "@/context/supabaseClientInfo";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Link } from "react-router-dom";
 import {
   Card,
   CardHeader,
@@ -140,7 +141,7 @@ const DashboardPage = () => {
             </CardHeader>
             <CardContent className="flex flex-col justify-center items-center gap-4">
               <p>No recent activity to display</p>
-              <Button>Apply for a new Loan</Button>
+             <Link to={'/dashboard/newloan'}> <Button>Apply for a new Loan</Button></Link>
             </CardContent>
           </Card>
         </div>

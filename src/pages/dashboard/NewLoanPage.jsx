@@ -1,5 +1,5 @@
 import React from "react";
-import MultiStepForm from "@/components/MultiStepForm";
+import NewLoanForm from "@/components/NewLoanForm";
 import { Card, CardTitle,CardDescription,CardContent,CardHeader } from "@/components/ui/card";
 import "../../styles/dashboard.css";
 import { AlertCircle } from "lucide-react";
@@ -16,9 +16,7 @@ const NewLoanPage = () => {
       </CardDescription>
       </CardHeader>
     </Card >
-      <Card className='mt-4 p-3'>
-        <MultiStepForm />
-      </Card>
+    <NewLoanForm />
   </div>
     </>
   );
