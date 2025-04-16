@@ -30,3 +30,25 @@ git clone https://github.com/salman9754/loanify.git
 cd loanify
 npm install
 npm run dev
+
+---
+
+## 📂 Project Structure
+
+src/ ├── components/ // Reusable UI components ├── pages/ // Route-based pages ├── utils/ // Utility functions ├── context/ // React Context providers └── styles/ // Tailwind & global styles
+
+---
+
+📈 Upcoming Features
+🔒 Google & Phone Auth (via Supabase)
+
+📊 Admin dashboard (loan analytics & management)
+
+📩 Email/SMS notifications
+
+🌐 Multi-language support
+
+📄 License
+MIT License
+
+Made with ❤️ by Salman
