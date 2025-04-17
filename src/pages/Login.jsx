@@ -20,6 +20,7 @@ const Login = () => {
           src={video}
           className="absolute inset-0 w-full h-full object-cover"
         />
+        
 
         <div className="absolute inset-0 bg-black/50"></div>
 
@@ -40,6 +41,19 @@ const Login = () => {
         <div className="mb-5">
           <MyLogo />
         </div>
+        <ToastContainer
+                      position="top-left"
+                      autoClose={2500}
+                      hideProgressBar={false}
+                      newestOnTop={false}
+                      closeOnClick={false}
+                      rtl={false}
+                      pauseOnFocusLoss
+                      draggable
+                      pauseOnHover
+                      theme="light"
+                      transition={Bounce}
+                    />
         <div className="form_container flex flex-col gap-12 mt-5">
           <div className="text-center">
             <h5 className="text-2xl sm:text-2xl md:text-2xl lg:text-3xl xl:text-3xl 2xl:text-4xl font-medium">

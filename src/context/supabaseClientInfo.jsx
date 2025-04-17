@@ -4,10 +4,9 @@ import { createContext, useContext, useState, useEffect } from "react";
 export const ClientInfoContext = createContext(null);
 export const ClientInfoProvider = ({ children }) => {
   const [clientData, setclientData] = useState([]);
-  const [loading, setloading] = useState(false);
+  const [loading, setloading] = useState(true);
   const fetchData = async () => {
     try {
-      setloading(true);
       const {
         data: { user },
         error: userError,

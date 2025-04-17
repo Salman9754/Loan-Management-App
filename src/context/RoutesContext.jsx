@@ -9,6 +9,7 @@ export const useAuth = () => useContext(AuthContext);
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setloading] = useState(false);
+  const [role, setrole] = useState(null);
   const [sessionChecked, setSessionChecked] = useState(false);
 
   useEffect(() => {
@@ -19,6 +20,16 @@ export const AuthProvider = ({ children }) => {
         if (error) throw error;
         if (data?.session?.user) {
           setUser(data.session.user);
+          try {
+            const { data: UserData, error: UserError } = await supabase
+              .from("Users")
+              .select("role")
+              .eq("user_Id", data.session.user.id);
+            if (UserError) throw error;
+            setrole(UserData[0].role);
+          } catch (error) {
+            console.log(error);
+          }
         }
       } catch (error) {
         console.log(error);
@@ -42,6 +53,8 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user,loading,sessionChecked }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ user, loading, sessionChecked, role }}>
+      {children}
+    </AuthContext.Provider>
   );
 };
