@@ -10,12 +10,18 @@ import ProfilePage from "@/pages/dashboard/ProfilePage";
 import PrivateRoute from "./PrivateRoute";
 import { AuthProvider } from "@/context/RoutesContext";
 import PublicRoute from "./PublicRoute";
+import AdminOnly from "@/pages/AdminOnly";
+import AdminDashboard from "@/pages/dashboard/AdminDashboard";
 
 const AppRoutes = () => {
   return (
     <AuthProvider>
       <BrowserRouter>
         <Routes>
+         <Route element={<AdminOnly/>}>
+         <Route path="/admin" element={<AdminDashboard/>} />
+         </Route>
+
           {/* Public Routes */}
           <Route element={<PublicRoute />}>
             <Route path="/" element={<Home />} />
