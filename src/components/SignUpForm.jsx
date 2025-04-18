@@ -2,7 +2,7 @@ import { React, useState } from "react";
 import { useForm } from "react-hook-form";
 import supabase from "@/supabase/client";
 import { toast } from "react-toastify";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   Form,
   FormField,
@@ -14,7 +14,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
-const SignUpForm = () => {
+const SignupForm = () => {
   const navigate = useNavigate();
   const notify = () => toast.success("Account created confirm email");
   const [loading, setloading] = useState(false);
@@ -158,4 +158,4 @@ const SignUpForm = () => {
   );
 };
 
-export default SignUpForm;
+export default SignupForm;

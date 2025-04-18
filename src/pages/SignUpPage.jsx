@@ -1,5 +1,5 @@
 import React from "react";
-import SignUpForm from "@/components/SignupForm";
+import SignupForm from "@/components/SignUpForm";
 import MyLogo from "@/components/MyLogo";
 import "../styles/components.css";
 import { Link } from "react-router-dom";
@@ -37,7 +37,7 @@ const SignUpPage = () => {
               <p className="text-sm mt-2">Create a new accountt</p>
             </div>
             <div className="form_sub_container mt-4">
-              <SignUpForm />
+              <SignupForm />
               <p className="text-xs text-center mt-5">
                 Have an account?
                 <Link to={"/login"}>
