@@ -51,4 +51,4 @@ src/ ├── components/ // Reusable UI components ├── pages/ // Route-b
 📄 License
 MIT License
 
-Made with ❤️ by Muhammad Salman Ansar
+Made with ❤️ by Muhammad Salman
