@@ -8,14 +8,13 @@ import DashboardPage from "@/pages/dashboard/DashboardPage";
 import LoanRequestPage from "@/pages/dashboard/LoanRequestPage";
 import NewLoanPage from "@/pages/dashboard/NewLoanPage";
 import ProfilePage from "@/pages/dashboard/ProfilePage";
-import { AuthProvider } from "@/context/RoutesContext";
 import PublicRoute from "./PublicRoute";
 import RoleBasedRoutes from "./RoleBaseRoutes";
 import AdminDashboard from "@/pages/dashboard/AdminDashboard";
 
 const AppRoutes = () => {
   return (
-    <AuthProvider>
+   
       <BrowserRouter>
         <Routes>
           {/* Admin Routes */}
@@ -41,7 +40,7 @@ const AppRoutes = () => {
           </Route>
         </Routes>
       </BrowserRouter>
-    </AuthProvider>
+    
   );
 };
 

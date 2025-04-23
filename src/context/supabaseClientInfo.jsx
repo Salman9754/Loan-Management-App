@@ -1,17 +1,15 @@
 import supabase from "@/supabase/client";
 import { createContext, useContext, useState, useEffect } from "react";
+import { useAuth } from "./RoutesContext";
 
 export const ClientInfoContext = createContext(null);
 export const ClientInfoProvider = ({ children }) => {
+  const { user, sessionChecked } = useAuth();
   const [clientData, setclientData] = useState([]);
+  const [LoanData, setLoanData] = useState([]);
   const [loading, setloading] = useState(true);
   const fetchData = async () => {
     try {
-      const {
-        data: { user },
-        error: userError,
-      } = await supabase.auth.getUser();
-      if (userError) throw userError;
       if (user) {
         try {
           const { data, error } = await supabase
@@ -21,6 +19,18 @@ export const ClientInfoProvider = ({ children }) => {
           if (error) throw error;
           if (data) {
             setclientData(data);
+            try {
+              const { data: LoanData, error: LoanError } = await supabase
+                .from("Loan_Requests")
+                .select("*")
+                .eq("user_id", user.id);
+              if (LoanError) throw LoanError;
+              if (LoanData) {
+                setLoanData(LoanData);
+              }
+            } catch (error) {
+              console.log(error);
+            }
           }
         } catch (error) {
           console.log(error);
@@ -34,14 +44,17 @@ export const ClientInfoProvider = ({ children }) => {
     }
   };
   useEffect(() => {
-    fetchData();
-  }, []);
+    if (sessionChecked) {
+      fetchData();
+    }
+  }, [user, sessionChecked]);
 
   return (
     <ClientInfoContext.Provider
       value={{
         loading,
         clientData,
+        LoanData,
         fetchData,
         clearClientData: () => setclientData([]),
       }}

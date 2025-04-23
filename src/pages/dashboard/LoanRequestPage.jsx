@@ -1,4 +1,5 @@
 import { React, useState, useEffect } from "react";
+import { useClientInfo } from "@/context/supabaseClientInfo";
 import {
   Card,
   CardHeader,
@@ -19,34 +20,13 @@ import {
 import supabase from "@/supabase/client";
 
 const LoanRequestPage = () => {
-  const [loans, setloans] = useState([]);
-  const [loading, setloading] = useState(false);
-  useEffect(() => {
-    const fetchData = async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      try {
-        setloading(true);
-        const { data, error } = await supabase
-          .from("Loan_Requests")
-          .select("*")
-          .eq("user_id", user.id);
-        if (error) throw error;
-        if (data) {
-          setloans(data);
-        }
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setloading(false);
-      }
-    };
-    fetchData();
-  }, []);
-
+  const {LoanData, loading} = useClientInfo()
+  if(LoanData){
+    console.log(LoanData);
+    
+  }
   if (loading) {
-   return null
+    return null;
   }
 
   return (
@@ -54,10 +34,13 @@ const LoanRequestPage = () => {
       <div className="Loan_table_container mt-5">
         <Card>
           <CardHeader>
-            <CardTitle className='flex items-center gap-2'><Wallet/>  All Loan Requests</CardTitle>
-            <CardDescription className='mt-3'>You can see all loan requests here</CardDescription>
+            <CardTitle className="flex items-center gap-2">
+              <Wallet /> All Loan Requests
+            </CardTitle>
+            <CardDescription className="mt-3">
+              You can see all loan requests here
+            </CardDescription>
           </CardHeader>
-        
         </Card>
         <Card className="mt-5">
           <CardHeader>
@@ -78,7 +61,7 @@ const LoanRequestPage = () => {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {loans.map((loan, index) => (
+                  {LoanData.map((loan, index) => (
                     <TableRow key={index}>
                       <TableCell>{loan.request_date}</TableCell>
                       <TableCell>{loan.loan_amount}</TableCell>
@@ -94,7 +77,7 @@ const LoanRequestPage = () => {
 
             {/* Mobile version */}
             <div className="block md:hidden space-y-4">
-              {loans.map((loan, index) => (
+              {LoanData.map((loan, index) => (
                 <div
                   key={index}
                   className="border rounded-xl p-4 shadow-sm bg-white dark:bg-gray-950"

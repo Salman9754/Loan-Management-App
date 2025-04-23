@@ -32,7 +32,6 @@ const DashboardPage = () => {
             .select("*", { count: "exact" })
             .eq("user_id", user.id);
           if (error) throw error;
-          console.log(count);
           setappliedLoans(count);
         } catch (error) {
           console.log(error.message);
