@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./App.jsx";
 import { ClientInfoProvider } from "./context/supabaseClientInfo";
 
-createRoot(document.getElementById("root")).render(
+createRoot(document.getElementById("root")!).render(
   <AuthProvider>
     <ClientInfoProvider>
       <App />
