@@ -7,6 +7,17 @@ import {
   CardFooter,
   CardContent,
 } from "./ui/card";
+
+interface DashboardCardProps {
+  heading: string;
+  headingCount: number;
+  icon: React.ComponentType<{ className?: string }>;
+  iconColor: string;
+  subHeading1: string;
+  subHeading2: string;
+  subHeading2Color: string;
+}
+
 const DashboardCard = ({
   heading,
   headingCount,
@@ -15,7 +26,7 @@ const DashboardCard = ({
   subHeading1,
   subHeading2,
   subHeading2Color,
-}) => {
+}: DashboardCardProps) => {
   const Icon = icon;
   return (
     <Card>

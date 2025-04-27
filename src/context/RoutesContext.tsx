@@ -1,16 +1,40 @@
 // src/context/AuthContext.js
-import React, { createContext, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  ReactNode,
+} from "react";
 import supabase from "@/supabase/client";
 
-const AuthContext = createContext();
+interface AuthContextType {
+  user: any;
+  loading: boolean;
+  role: string | null;
+  sessionChecked: boolean;
+  [key: string]: any;
+}
 
-export const useAuth = () => useContext(AuthContext);
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [loading, setloading] = useState(false);
-  const [role, setrole] = useState(null);
-  const [sessionChecked, setSessionChecked] = useState(false);
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+  return context;
+};
+
+interface AuthProviderProps {
+  children: ReactNode;
+}
+
+export const AuthProvider = ({ children }: AuthProviderProps) => {
+  const [user, setUser] = useState<any>(null);
+  const [loading, setloading] = useState<boolean>(false);
+  const [role, setrole] = useState<string>("");
+  const [sessionChecked, setSessionChecked] = useState<boolean>(false);
 
   useEffect(() => {
     const checkSession = async () => {

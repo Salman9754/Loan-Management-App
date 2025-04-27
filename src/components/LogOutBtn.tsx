@@ -14,7 +14,7 @@ const LogOutBtn = () => {
       if (error) throw error;
       clearClientData();
       navigate("/login");
-    } catch (error) {
+    } catch (error: any) {
       console.log("Error during logout:", error.message);
     }
   };

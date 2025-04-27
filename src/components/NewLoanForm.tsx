@@ -1,4 +1,3 @@
-import { React } from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "./ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
@@ -78,7 +77,7 @@ const NewLoanForm = () => {
             window.location.reload();
           }, 3000);
         } catch (error) {}
-      } catch (error) {
+      } catch (error: any) {
         console.log(error.message);
       }
     } catch (error) {

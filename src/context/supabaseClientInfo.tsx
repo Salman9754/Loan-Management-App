@@ -1,12 +1,44 @@
 import supabase from "@/supabase/client";
-import { createContext, useContext, useState, useEffect } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from "react";
 import { useAuth } from "./RoutesContext";
 
-export const ClientInfoContext = createContext(null);
-export const ClientInfoProvider = ({ children }) => {
+interface ClientDataType {
+  id: string;
+  user_Id: string;
+  [key: string]: any;
+}
+
+interface LoanDataType {
+  id: string;
+  user_id: string;
+  loan_amount: number;
+  [key: string]: any;
+}
+
+interface ClientInfoContextType {
+  loading: boolean;
+  clientData: ClientDataType[];
+  LoanData: LoanDataType[];
+  fetchData: () => Promise<void>;
+  clearClientData: () => void;
+}
+interface ClientInfoProviderProps {
+  children: ReactNode;
+}
+
+export const ClientInfoContext = createContext<
+  ClientInfoContextType | undefined
+>(undefined);
+export const ClientInfoProvider = ({ children }: ClientInfoProviderProps) => {
   const { user, sessionChecked } = useAuth();
-  const [clientData, setclientData] = useState([]);
-  const [LoanData, setLoanData] = useState([]);
+  const [clientData, setclientData] = useState<ClientDataType[]>([]);
+  const [LoanData, setLoanData] = useState<LoanDataType[]>([]);
   const [loading, setloading] = useState(true);
   const fetchData = async () => {
     try {
@@ -36,7 +68,7 @@ export const ClientInfoProvider = ({ children }) => {
           console.log(error);
         }
       }
-    } catch (error) {
+    } catch (error: any) {
       setclientData([]);
       console.log(error.message);
     } finally {
@@ -64,4 +96,10 @@ export const ClientInfoProvider = ({ children }) => {
   );
 };
 
-export const useClientInfo = () => useContext(ClientInfoContext);
+export const useClientInfo = () => {
+  const context = useContext(ClientInfoContext);
+  if (!context) {
+    throw new Error("useClientInfo must be used within a ClientInfoProvider");
+  }
+  return context;
+};

@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { useState } from "react";
 import supabase from "@/supabase/client";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -15,20 +15,24 @@ import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { useClientInfo } from "@/context/supabaseClientInfo";
 
+type LoginFormValues = {
+  email: string;
+  password: string;
+};
 
 const LoginForm = () => {
   const { fetchData } = useClientInfo();
   const navigate = useNavigate();
-  const Unnotify = (error) => toast.error(error.message);
+  const Unnotify = (error: any) => toast.error(error.message);
   const [loading, setloading] = useState(false);
-  const form = useForm({
+  const form = useForm<LoginFormValues>({
     defaultValues: {
       email: "",
       password: "",
     },
   });
 
-  const onSubmit = async (FormData) => {
+  const onSubmit = async (FormData: LoginFormValues) => {
     const { email, password } = FormData;
     try {
       setloading(true);
